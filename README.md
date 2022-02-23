@@ -17,7 +17,7 @@ Furthermore, we will train and track a collaborative filtering model and use the
 
 We will end up with an easily and quickly configurable docker setup that gets all the above tools up and running.
 
-### Let's set things up
+### Setting things up
 
 For local testing purposes we can schedule our `train.py` script in the `train` container with a cronjob defined in `config/cron/config.ini` for now:
 
@@ -45,12 +45,12 @@ All the services should now be up and running and the cronjob should run the `tr
 $ docker container ps
 ```
 
-### Let's check out MLflow and Minio
+### MLflow and Minio
 
 We can check out the MLflow GUI on `http://localhost:5000` and the Minio Console on http://localhost:9000/ .
 
 
-### Let's test the API
+### Testing the API
 
 For testing purposes of the API let's run:
 
