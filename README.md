@@ -19,7 +19,7 @@ We will end up with an easily and quickly configurable docker setup that gets al
 
 ### Setting things up
 
-For local testing purposes we can schedule our `train.py` script in the `train` container with a cronjob defined in `config/cron/config.ini` for now:
+For local testing purposes we can schedule our `train.py` script in the `train` container with a cronjob defined in `config/cron/config.ini` :
 
 ```python
 [job-exec "train"]
