@@ -39,11 +39,18 @@ To then start all the services run
 $ docker-compose up -d
 ```
 
-All the services should now be up and running and the cronjob should run the `train.py` script at whatever time selected.
+All the services should now be up and running and the cronjob should run the `train.py` script at whatever time selected. 
 
 ```
 $ docker container ps
 ```
+
+### Let's check out MLflow and Minio
+
+We can check out the MLflow GUI on `http://localhost:5000` and the Minio Console on http://localhost:9000/ .
+
+
+### Let's test the API
 
 For testing purposes of the API let's run:
 
