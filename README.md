@@ -43,5 +43,8 @@ All the services should now be up and running and the cronjob should run the `tr
 $ docker container ps
 ```
 
-To check
+For testing purposes of the API let's run:
 
+```
+$ python test_api.py`
+```
