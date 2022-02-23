@@ -2,10 +2,7 @@
 
 ### Let's build a recommendation engine with a collaborative filtering model, track the model results with MLflow and use Flask to serve batch-predictions of products other users may like as well
 
-### Background
-One of the biggest challenges with data science & machine learning is that compared to most software engineering workflows, development and deployment requires a lot more data, tooling, and experimentation. Not coming from a software engineering background many Data Scientists lack experience in producing production ready software systems. One way to overcome this issue is to improve local development experiences for data science and machine learning tasks. Precisely, working and developing in a local setup that looks like a cloud-based workflow can help Data Scientists to move their work more easily into production systems.
-
-### TL;DR What we will do
+### What we will do
 
 In the first part, we will explore the creation of a local machine learning workbench aka containerized docker setup for production software-like development workflows. Having that in mind, we will use the following tools to do so:
 
