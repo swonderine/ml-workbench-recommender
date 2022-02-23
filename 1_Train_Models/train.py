@@ -211,15 +211,5 @@ if __name__ == '__main__':
     train()
 
 
-# Sources
-# https://stackoverflow.com/questions/65887231/use-mlflow-to-serve-a-custom-python-model-for-scoring
-# https://towardsdatascience.com/mlflow-part-3-logging-models-to-a-tracking-server-54b6aa3cd00f
-# https://www.alexanderjunge.net/blog/mlflow-sagemaker-deploy/
-# https://stackoverflow.com/questions/56627446/docker-compose-how-to-use-minio-in-and-outside-of-the-docker-network
-# https://qooba.net/2021/05/22/feast-with-ai-feed-your-mlflow-models-with-feature-store/
-# https://github.com/darshikaf/mlflow-tracking-server-with-minio/blob/master/tests/mlflow_client_test.py
-# https://medium.com/@pennyqxr/how-save-and-load-fasttext-model-in-mlflow-format-37e4d6017bf0
-
-
 
 
