@@ -4,7 +4,7 @@
 
 ### What we will do
 
-In the first part, we will explore the creation of a local machine learning workbench aka containerized docker setup for production software-like development workflows. Having that in mind, we will use the following tools to do so:
+We will create of a local machine learning workbench aka containerized docker setup for production software-like development workflows. Having that in mind, we will use the following tools to do so:
 
 + [MLFlow](https://www.mlflow.org/) for experiment tracking and model management
 + [MinIO](https://min.io/) to mimic AWS S3 and act as an artifact and data storage system
