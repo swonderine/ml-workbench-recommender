@@ -36,7 +36,7 @@ Before building the images rename `.env.example` to `.env`. To then create all t
 $ docker-compose build
 ```
 
-To then start all the services run
+To then start all the services in detached mode run
 
 ```
 $ docker-compose up -d
