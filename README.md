@@ -18,7 +18,7 @@ Furthermore, we will train and track a collaborative filtering model and use the
 We will end up with an easily and quickly configurable docker setup that gets all the above tools up and running.
 
 ### Data
-The synthetic data consisting of a product catalog `product_catalog.csv` and raw user interaction data `journey.csv`, created from real website data, needs to be copied into `0_Data`. It can be accessed [here](https://drive.google.com/drive/folders/1ntpYRe5bsLWiMlnCj-AtXNCJdEoXoKSs?usp=sharing)
+Synthetic data created from real website data consisting of a product catalog `product_catalog.csv` and raw user interaction data `journey.csv`, needs to be copied into `0_Data`. It can be accessed [here](https://drive.google.com/drive/folders/1ntpYRe5bsLWiMlnCj-AtXNCJdEoXoKSs?usp=sharing) .
 
 ### Setting things up
 
