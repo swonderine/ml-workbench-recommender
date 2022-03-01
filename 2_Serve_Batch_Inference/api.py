@@ -20,16 +20,16 @@ version = os.environ['API_VERSION']
 app = Flask(__name__)
 
 # Load similar items
-with open("./0_Data/similar_items.json", 'r') as file:
-    implicit_similar = json.load(file)
-    print("similar_items.json loaded")
+with open("./0_Data/related_items.json", 'r') as file:
+    implicit_related = json.load(file)
+    print("related_items.json loaded")
 
-@app.route('/similar_others_liked', methods=['GET','POST'])
-def similar_others_liked():
-    """Other users liked aswell - similar products from implicit"""
+@app.route('/related_others_liked', methods=['GET','POST'])
+def related_others_liked():
+    """Other users liked aswell - related products from implicit"""
     try:
         
-        # Receive data - https://www.digitalocean.com/community/tutorials/processing-incoming-request-data-in-flask #
+        # Receive data
         data = request.get_json(force=True)
         print("Request received")
         
@@ -37,12 +37,12 @@ def similar_others_liked():
         sku = data['sku']
 
         # Get 10 similar items
-        sim_imp = json.dumps(implicit_similar[sku], indent=4) #, sort_keys=True)
+        rel_imp = json.dumps(implicit_related[sku], indent=4)
         
-        print(sim_imp)
+        print(rel_imp)
         
         # Return sim Items from Implicit
-        return(sim_imp)            
+        return(rel_imp)            
         
     
     except ValueError:

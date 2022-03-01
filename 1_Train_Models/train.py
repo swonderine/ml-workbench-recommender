@@ -6,8 +6,8 @@ Major steps:
     #1 Load Data
     #2 Preprocess Data
     #3 Training
-    #4 Batch Predicitions
-    #5 MLflow logging metrics & parameters
+    #4 MLflow logging metrics & parameters
+    #5 Batch Predicitions
     #6 MLflow saving and logging of model
 """
 
@@ -42,6 +42,7 @@ print('\n')
 
 # Set environment variables for MLflow
 MIN_SAMPLE_OUTPUT = 35
+GIT_PYTHON_REFRESH= "quiet"
 
 # MLflow settings
 mlflow_settings = dict(
@@ -58,7 +59,7 @@ mlflow.set_tracking_uri(
 
 # Set experiment id for MLflow 
 current_date = date.today()
-experiment_id = mlflow.set_experiment("recommender_similar_items")
+experiment_id = mlflow.set_experiment("recommender_related_items")
 
 # Create a Conda environment for the new MLflow Model that contains all necessary dependencies
 conda_env = {
@@ -90,9 +91,8 @@ def train():
         #############################################################################
         
         product_catalog = pd.read_csv("./0_Data/product_catalog.csv")
-        raw_data =  pd.read_csv("./0_Data/journey.csv")
+        raw_data =  pd.read_csv("./0_Data/journey.csv")        
     
-        
         #############################################################################
         # ---------------------------------- # 2 ---------------------------------- #
         # ---------------------------  Data preprocessing ------------------------- #
@@ -106,6 +106,9 @@ def train():
         
         # Create product dataframe
         df_products = pre.create_catalog()
+        
+        # Create clients dataframe
+        # df_clients = pre.create_clients()
   
         # Create sparse item user matrix
         sparse_item_user = pre.transform()
@@ -128,33 +131,13 @@ def train():
         training = TrainImplicit(sparse_item_user)
         
         # Find best model and get hyperparameters
-        best_hyperparams = training.random_search_implicit(num_samples=20)
+        best_hyperparams = training.random_search_implicit(num_samples=15)
         
-        # Fit Model with best hyperparameters
-        trained_model = training.train_best(best_hyperparams)
-        
-        #############################################################################
-        # ---------------------------------- # 4 ---------------------------------- #
-        # ----------------- Batch Predictions for similar products  --------------- #
-        #############################################################################
-        
-        from predictions import BatchPredictions
-        
-        # Instantiate Object
-        pred = BatchPredictions(sparse_item_user,df_products,trained_model)
-        
-        # Batch Predictions
-        similar_items = pred.product_batch_predictions_implicit()
-        
-        # Store similar_items.json in 0_Data
-        with open("0_Data/similar_items.json", 'w') as outfile:
-            json.dump(similar_items, outfile, indent = 4, sort_keys = False)
-            print("similar_implicit.json stored in 0_Data")
-        # Log similar_items.json as artifact
-        mlflow.log_dict(similar_items, "data/similar_items.json")
+        # Fit model with best hyperparameters
+        best_model = training.train_best(best_hyperparams)
         
         #############################################################################
-        # --------------------------------- # 5 ----------------------------------- #
+        # --------------------------------- # 4 ----------------------------------- #
         # ------------------- MLflow - Logging Metrics &Paramters------------------ #
         #############################################################################
         
@@ -165,6 +148,27 @@ def train():
         mlflow.log_param("regularization", best_hyperparams["regularization"])
         mlflow.log_param("iterations", best_hyperparams["iterations"])
         mlflow.log_param("Date", current_date)
+        
+        #############################################################################
+        # ---------------------------------- # 5 ---------------------------------- #
+        # ----------------- Batch Predictions for related products  --------------- #
+        #############################################################################
+        
+        from predictions import BatchPredictions
+        
+        # Instantiate Object
+        pred = BatchPredictions(sparse_item_user,df_products,best_model)
+        
+        # Batch Predictions
+        related_items = pred.product_batch_predictions_implicit()
+        
+        # Store related_items.json in 0_Data
+        with open("0_Data/related_items.json", 'w') as outfile:
+            json.dump(related_items, outfile, indent = 4, sort_keys = False)
+            print("related_implicit.json stored in 0_Data")
+        # Log related_items.json as artifact
+        mlflow.log_dict(related_items, "data/related_items.json")
+        
         
         #############################################################################
         # ---------------------------------- # 6 ---------------------------------- #
@@ -182,7 +186,7 @@ def train():
         implicit_model_path = model_name + ".joblib"
                     
         # Store implicit model as joblib file
-        joblib.dump(trained_model, implicit_model_path, compress=True)
+        joblib.dump(best_model, implicit_model_path, compress=True)
         print('Implicit Model saved')
 
         # Create an 'artifacts' dictionary that assigns a unique name to the saved implicit model file.

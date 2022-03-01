@@ -1,5 +1,5 @@
 """
-DataPreProcess.py
+preprocessing.py
 ~~~~~~
 Preprocess raw user data & catalog to serve as model input
 """
@@ -7,10 +7,9 @@ Preprocess raw user data & catalog to serve as model input
 import pandas as pd
 import numpy as np
 import scipy.sparse as sparse
-from sklearn.base import BaseEstimator, TransformerMixin
 
 
-class PreProcess(BaseEstimator, TransformerMixin):
+class PreProcess:
     """
     Clean and wrangle raw user journey data & product catalog
     """
@@ -91,7 +90,7 @@ class PreProcess(BaseEstimator, TransformerMixin):
         """
         
         # Drop rows with duplicate index values - just in case
-        data = data.loc[~data.index.duplicated(), :]
+        # data = data.loc[~data.index.duplicated(), :]
         
         # Merge with product catalog stepwise taking eventType into account
         
@@ -179,7 +178,7 @@ class PreProcess(BaseEstimator, TransformerMixin):
         """
         
         ## Create Dataframe with unique client ids
-        clients = self.raw_data.drop_duplicates(['clientId', 'country'], keep = 'last')[['clientId', 'country']]
+        clients = self.raw_data.drop_duplicates(['clientId'], keep = 'last')[['clientId']]
         
         clients = self._assign_unique_id(
             clients, id_column)

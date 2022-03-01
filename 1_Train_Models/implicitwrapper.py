@@ -1,4 +1,3 @@
-import implicit
 import mlflow.pyfunc
 
 
@@ -12,6 +11,7 @@ class ImplicitWrapper(mlflow.pyfunc.PythonModel):
         Args:
             context: MLflow context where the model artifact is stored.
         """
+        
         import implicit
         import joblib
 

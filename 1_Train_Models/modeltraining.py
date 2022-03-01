@@ -8,7 +8,8 @@ import numpy as np
 import implicit
 from implicit.evaluation import train_test_split as train_test_split_implicit
 import itertools
-
+# from sklearn.model_selection import ParameterGrid
+# from scipy.sparse import coo_matrix, csr_matrix
 
 class TrainImplicit:
     """
@@ -37,7 +38,7 @@ class TrainImplicit:
         """  
         
         
-        data = train_test_split_implicit(sparse,.8)
+        data = train_test_split_implicit(sparse,.7)
 
         train_item_user, test_item_user = data[0],data[1]
         
@@ -73,7 +74,7 @@ class TrainImplicit:
         # internal fitting to finmodel
         def fitting(train, test, num_samples):
             
-            ii = 0
+            i = 0
             
             def sample_hyperparameters_implicit():
                 """
@@ -89,22 +90,22 @@ class TrainImplicit:
             
             for hyperparams in itertools.islice(sample_hyperparameters_implicit(), num_samples):
                 
-                ii = ii + 1            
+                i = i + 1            
                 
                 model_implicit = implicit.als.AlternatingLeastSquares(**hyperparams)
                 
-                # random value between 0 & 100 - Paper says 40
-                alpha = np.random.randint(1, 100)
+                # random value between 0 & 100 - Implicit Paper suggests 40
+                alpha = np.random.randint(1, 80)
                 
                 # create data
                 data_conf = (train * alpha).astype('double')
                 
                 # Fit Model & Evaluate at MAP@K = 5
                 model_implicit.fit((data_conf),show_progress=True)
-                map5 = implicit.evaluation.mean_average_precision_at_k(model_implicit, train.T.tocsr(), test.T.tocsr(), K = 5)
+                map5 = implicit.evaluation.mean_average_precision_at_k(model_implicit, train.tocsr(), test.tocsr(), K = 5)
                 print(map5)
                 
-                print(f"  --- Implicit Model Fitting - Iteration {ii} of {num_samples}")
+                print(f"  --- Implicit Model Fitting - Iteration {i} of {num_samples}")
                 
                 # Add Alpha        
                 hyperparams["alpha"] = alpha

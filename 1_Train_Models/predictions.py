@@ -8,6 +8,8 @@ import pandas as pd
 import implicit
 from collections import defaultdict
 from itertools import islice
+from scipy.sparse import coo_matrix, csr_matrix
+
 
 MLFLOW_ARTIFACT_ROOT = "/tmp/mlruns"
 
@@ -47,19 +49,18 @@ class BatchPredictions:
         """
                     
         # Similar products
-        sim = model_implicit.similar_items(item_id,N)
-                
-        # Find simlar in df_products        
-        first,snd = zip(*sim)
-        # Access first element of tuple 
-        first = pd.DataFrame(first)
-        # Transform to dataframe
-        first.columns = ['product_int_id']
+        rel = model_implicit.similar_items(item_id,N)
+        
+        # Find related products and infos in df_products
+        
+        first, snd = zip(*rel)
+        # Transform to Dataframe
+        rel = pd.DataFrame(first, columns = ['product_int_id'])
 
         # Merge columns, we need for interactions with API when similar products requested
-        sim = first.merge(df_products[['product_int_id','sku','name']], how='left', on='product_int_id')
+        rel = rel.merge(df_products[['product_int_id','sku','name']], how='left', on='product_int_id')
         
-        return sim
+        return rel
     
         
     def product_batch_predictions_implicit(self):
@@ -80,16 +81,18 @@ class BatchPredictions:
         iters = self.sparse_item_user.shape[0] # length of rows 
         for x in range(iters):
             
-            pred_similar_implicit = self._similar_products_implicit(x,
+            print(x)
+            
+            pred_related_implicit = self._similar_products_implicit(x,
                                                                     self.model_implicit,
                                                                     self.df_products)
                 
-            sku = pred_similar_implicit.iloc[0]['sku']
+            sku = pred_related_implicit.iloc[0]['sku']
             
             # Create dictionary for similar products
             dd_impl = defaultdict(dict)
             
-            for i, row in islice(pred_similar_implicit.iterrows(), 1, None):
+            for i, row in islice(pred_related_implicit.iterrows(), 1, None):
                 dd_impl[i] = row.drop(['product_int_id']).to_dict()
                 
             # Store similar products in dictionary
