@@ -42,7 +42,7 @@ To then start all the services run
 $ docker-compose up -d
 ```
 
-All the services should now be up and running and the cronjob should run the `train.py` script at whatever time specified. To check running containers run
+All the services are now be up and running and the cronjob runs the script `train.py` at whatever time specified. To check running containers run
 
 ```
 $ docker container ps
