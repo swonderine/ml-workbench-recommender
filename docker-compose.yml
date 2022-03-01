@@ -155,4 +155,3 @@ volumes:
   certs:
   db_data:
   minio_data:
-
