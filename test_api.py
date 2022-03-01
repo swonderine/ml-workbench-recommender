@@ -7,7 +7,7 @@ data = {
 }
 
 # Address
-ip_address = 'http://0.0.0.0:5001/similar_others_liked'
+ip_address = 'http://0.0.0.0:5001/related_others_liked'
 
 r = requests.post(ip_address, json=data)
 
