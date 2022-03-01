@@ -30,7 +30,7 @@ schedule = 0 05 16 * * *
 container = recommender-local-train
 command = /bin/bash -c 'pipenv run python3 /1_Train_Models/train.py'
 ```
-To build all the individual images run
+Before building the images rename `.env.example` to `.env`. To then create all the individual images run
 
 ```
 $ docker-compose build
