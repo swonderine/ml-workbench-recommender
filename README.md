@@ -50,13 +50,17 @@ $ docker container ps
 
 ### MLflow and Minio
 
-We can check out the MLflow GUI on `http://localhost:5000` and the Minio Console on http://localhost:9000/ .
+We can check out the MLflow GUI on http://localhost:5000 and the Minio Console on http://localhost:9000/ .
 
 
 ### Testing the API
 
-For testing purposes of the API let's run:
+The API now runs on http://localhost:5001/related_similar_items . To test it let's run the script `test_api.py`:
 
 ```
 $ python test_api.py`
 ```
+
+### Learn More
+
+A more detailed explanation of the individual steps and services can be found [here](http://stefanbrunhuber.com/output/articles/using-docker-and-mlflow-to-deploy-and-track-machine-learning-models-with-a-local-ml-workbench.html#using-docker-and-mlflow-to-deploy-and-track-machine-learning-models-with-a-local-ml-workbench)
