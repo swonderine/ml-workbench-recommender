@@ -1,6 +1,6 @@
 # Train & Serve a Machine Learning Model as a Microservice using Docker and Track the Model-Performance using MLflow
 
-### Let's build a recommendation engine with a collaborative filtering model, track the model results with MLflow and use Flask to serve batch-predictions of products other users may like as well
+### Let's build a recommendation engine with a collaborative filtering model, track the model results with MLflow and use Flask to serve batch-predictions of related products other users may like as well
 
 ### What we will do
 
@@ -16,6 +16,9 @@ Furthermore, we will train and track a collaborative filtering model and use the
 + [Flask REST API](https://flask.palletsprojects.com/en/2.0.x/) to serve our predictions
 
 We will end up with an easily and quickly configurable docker setup that gets all the above tools up and running.
+
+### Data
+The synthetic data consisting of a product catalog `product_catalog.csv` and raw user interaction data `journey.csv`, created from real website data, needs to be copied into `0_Data`. It can be downloaded [here](https://drive.google.com/drive/folders/1ntpYRe5bsLWiMlnCj-AtXNCJdEoXoKSs?usp=sharing)
 
 ### Setting things up
 
