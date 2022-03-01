@@ -1,3 +1,7 @@
 minio_data/
 mlruns/
 .env
+sources.txt
+0_Data/sample_data.csv
+0_Data/df_products.csv
+**/__pycache__
